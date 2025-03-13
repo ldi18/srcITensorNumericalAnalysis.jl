@@ -18,12 +18,12 @@ and `maxdim`.
 function interpolative(M::Matrix; kws...)
   # Compute interpolative decomposition (ID) from PRRLU
   L, d, U, pr, pc, inf_error = prrldu(M; kws...)
-  U11 = U[:, 1:length(d)]
-  iU11 = backsolveU(U11)
-  ZjJ = iU11 * U
-  CIj = L * LinearAlgebra.Diagonal(d) * U11
-  C = CIj[pr, :]
-  Z = ZjJ[:, pc]
+  Ui1 = U[:, 1:length(d)]
+  iU1i = backsolveU(Ui1)
+  ZJj = iU1i * U
+  CjI = L * LinearAlgebra.Diagonal(d) * Ui1
+  C = CjI[pr, :]
+  Z = ZJj[:, pc]
   # Compute mapping of pivot columns to column indices
   piv_cols = invperm(pc)[1:length(d)]
   return C, Z, piv_cols, inf_error
