@@ -19,11 +19,11 @@ function interpolative(M::Matrix; kws...)
   # Compute interpolative decomposition (ID) from PRRLU
   L, d, U, pr, pc, inf_error = prrldu(M; kws...)
   Ui1 = U[:, 1:length(d)]
-  iU1i = backsolveU(Ui1)
-  ZJj = iU1i * U
-  CjI = L * LinearAlgebra.Diagonal(d) * Ui1
-  C = CjI[pr, :]
-  Z = ZJj[:, pc]
+  iU1j = backsolveU(Ui1)
+  Z1j = iU1j * U
+  Ci1 = L * LinearAlgebra.Diagonal(d) * Ui1
+  C = Ci1[pr, :]
+  Z = Z1j[:, pc]
   # Compute mapping of pivot columns to column indices
   piv_cols = invperm(pc)[1:length(d)]
   return C, Z, piv_cols, inf_error
